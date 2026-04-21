@@ -247,26 +247,22 @@ body *{box-sizing:border-box}
 # ─────────────────────────────────────────────────────────────────────────────
 
 class FeatureExtractor(nn.Module):
-    def __init__(self, model_name: str, nc: int = 19):
+    def __init__(self, model_name: str):
         super().__init__()
-        # Load pre-trained structures without weights to prepare for state_dict loading
+        # Matches your training: base_model = initialize_architecture(model_name)
         if model_name == "MobileNet_V3_Large":
             m = models.mobilenet_v3_large(weights=None)
-            # Match Phase 3: Stripping the entire classifier
+            # Match Phase 3: Stripping classifier to get raw features (960)
+            self.feat_dim = m.classifier[0].in_features
             m.classifier = nn.Identity()
-            self.feat_dim = 960 
         elif model_name == "ResNet50":
             m = models.resnet50(weights=None)
-            # Match Phase 3: Stripping the fc layer
+            self.feat_dim = m.fc.in_features
             m.fc = nn.Identity()
-            self.feat_dim = 2048
         elif model_name == "ViT_B16":
             m = models.vit_b_16(weights=None)
-            # Match Phase 3: Stripping the heads
+            self.feat_dim = m.heads.head.in_features
             m.heads = nn.Identity()
-            self.feat_dim = 768
-        else:
-            raise ValueError(f"Unknown backbone: {model_name}")
         self.backbone = m
 
     def forward(self, x):
@@ -277,38 +273,32 @@ class FeatureExtractor(nn.Module):
         return x
 
 class EnsembleStackingNet(nn.Module):
-    def __init__(self, num_classes: int = 19):
+    def __init__(self, model_names, num_classes=19):
         super().__init__()
-        self.stream1 = FeatureExtractor("MobileNet_V3_Large", num_classes)
-        self.stream2 = FeatureExtractor("ResNet50", num_classes)
-        self.stream3 = FeatureExtractor("ViT_B16", num_classes)
+        self.stream1 = FeatureExtractor(model_names[0])
+        self.stream2 = FeatureExtractor(model_names[1])
+        self.stream3 = FeatureExtractor(model_names[2])
         
-        # [CRITICAL] These layer names MUST be head1, head2, head3 to match your .pth file
+        # Matches Phase 8: Linear layers for each stream BEFORE stacking
+        # This resolves the "Unexpected key: head1.weight" error
         self.head1 = nn.Linear(self.stream1.feat_dim, num_classes)
         self.head2 = nn.Linear(self.stream2.feat_dim, num_classes)
         self.head3 = nn.Linear(self.stream3.feat_dim, num_classes)
         
-        # Final Meta-Learner (Stacked Ensemble)
+        # Meta-learner: The Stacking Ensemble (GELU Activation)
         self.meta_learner = nn.Sequential(
             nn.Linear(num_classes * 3, 256),
-            nn.BatchNorm1d(256),
-            nn.GELU(),
+            nn.BatchNorm1d(256), 
+            nn.GELU(), 
             nn.Dropout(0.1),
             nn.Linear(256, num_classes)
         )
 
     def forward(self, x):
-        # Extract features
-        f1 = self.stream1(x)
-        f2 = self.stream2(x)
-        f3 = self.stream3(x)
+        f1 = self.stream1(x); f2 = self.stream2(x); f3 = self.stream3(x)
+        out1 = self.head1(f1); out2 = self.head2(f2); out3 = self.head3(f3)
         
-        # Pass through individual heads
-        out1 = self.head1(f1)
-        out2 = self.head2(f2)
-        out3 = self.head3(f3)
-        
-        # Stacking opinions for the Meta-Learner
+        # Stack opinions for the Meta-Learner
         stacked_logits = torch.cat([out1, out2, out3], dim=-1)
         return self.meta_learner(stacked_logits), [out1, out2, out3]
 
@@ -316,8 +306,6 @@ class EnsembleStackingNet(nn.Module):
 @st.cache_resource
 def load_engine():
     p = "best_hybrid_model.pth"
-    
-    # 1. Define Class Names Manually
     class_names = [
         "Belleric Myrobalan", "Black Cumin", "Black Pepper", "Cardamom",
         "Chebulic Myrobalan", "Cinnamon", "Clove", "Cumin Seeds",
@@ -325,79 +313,43 @@ def load_engine():
         "Gooseberry", "Mace", "Nutmeg", "Psoralea Fruit",
         "Sesame Seeds", "Star Anise", "Turmeric"
     ]
+    if not os.path.exists(p): return None, {"classes": class_names}
     
-    # 2. Check if File Exists
-    if not os.path.exists(p):
-        st.error(f"❌ File Not Found: {p} was not found in the repository root.")
-        return None, None
-
-    # 3. Check File Size (Git LFS Validation)
-    file_size_mb = os.path.getsize(p) / (1024 * 1024)
-    if file_size_mb < 1.0:
-        st.error(f"⚠️ Git LFS Error: The file {p} is only {file_size_mb:.4f} MB. "
-                 "GitHub only uploaded the 'Pointer' file, not the actual 450MB model. "
-                 "Please check your Git LFS push status.")
-        return None, None
-
     try:
-        # 4. Load the Model Bundle
-        bundle = torch.load(p, map_location="cpu")
-        
-        # Initialize the architecture
-        model = EnsembleStackingNet(num_classes=len(class_names))
-
-        # 5. Robust State Dict Loading
-        if isinstance(bundle, dict):
-            if "states" in bundle:
-                s = bundle["states"]
-                model.stream1.load_state_dict(s["MobileNet_V3_Large"])
-                model.stream2.load_state_dict(s["ResNet50"])
-                model.stream3.load_state_dict(s["ViT_B16"])
-                if "meta_learner" in s:
-                    model.meta_learner.load_state_dict(s["meta_learner"])
-            elif "model_state_dict" in bundle:
-                model.load_state_dict(bundle["model_state_dict"])
-            else:
-                model.load_state_dict(bundle)
-        else:
-            # If the bundle is the model itself
-            model = bundle
-
+        # EXACT naming conventions from your training BEST_3_NAMES
+        model = EnsembleStackingNet(["MobileNet_V3_Large", "ResNet50", "ViT_B16"])
+        state_dict = torch.load(p, map_location="cpu")
+        model.load_state_dict(state_dict)
         model.eval()
         return model, {"classes": class_names}
-
     except Exception as e:
-        st.error(f"🚀 Engine Start Failed: {e}")
-        return None, None
+        st.error(f"Model Load Failed: {e}")
+        return None, {"classes": class_names}
 
-
-engine, meta = load_engine()
-OK = engine is not None
-
-THRESHOLD = 10.0
-MODEL_NAMES = ["MobileNet", "ResNet50", "ViT-B16"]
-
-# Standard ImageNet normalization and resizing
+# Actual transforms used in your Hybrid Evaluation
 TF = transforms.Compose([
     transforms.Resize((224, 224)),
     transforms.ToTensor(),
-    transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225]),
+    transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
 ])
 
 def infer(img: Image.Image):
     t = TF(img).unsqueeze(0)
     with torch.no_grad():
         final_logits, stream_logits = engine(t)
-        fp = F.softmax(final_logits, dim=1)
-        conf, idx = torch.max(fp, 1)
-    
-    # Calculate individual confidence scores for each backbone stream
-    pm = {
-        name: float(torch.max(F.softmax(logit, dim=1)).item()) * 100
-        for name, logit in zip(MODEL_NAMES, stream_logits)
-    }
-    
-    # Class index mapping via the manually defined list in meta
+        
+        # Applying Softmax to get the high confidence probability (0-100%)
+        probs = F.softmax(final_logits, dim=1)
+        conf, idx = torch.max(probs, 1)
+        
+        # Individual model performance breakdown
+        pm = {}
+        MODEL_NAMES = ["MobileNet", "ResNet50", "ViT-B16"]
+        for name, logit in zip(MODEL_NAMES, stream_logits):
+            s_probs = F.softmax(logit, dim=1)
+            s_conf, _ = torch.max(s_probs, 1)
+            pm[name] = float(s_conf.item()) * 100
+            
     return meta["classes"][idx.item()], float(conf.item()) * 100, pm
 
 
