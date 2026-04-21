@@ -296,10 +296,8 @@ class EnsembleStackingNet(nn.Module):
 @st.cache_resource
 def load_engine():
     p = "best_hybrid_model.pth"
-    if not os.path.exists(p):
-        return None, None
-
-    # Manually define 19 herbal classes to prevent KeyError from model bundle
+    
+    # 1. Define Class Names Manually
     class_names = [
         "Belleric Myrobalan", "Black Cumin", "Black Pepper", "Cardamom",
         "Chebulic Myrobalan", "Cinnamon", "Clove", "Cumin Seeds",
@@ -307,27 +305,50 @@ def load_engine():
         "Gooseberry", "Mace", "Nutmeg", "Psoralea Fruit",
         "Sesame Seeds", "Star Anise", "Turmeric"
     ]
+    
+    # 2. Check if File Exists
+    if not os.path.exists(p):
+        st.error(f"❌ File Not Found: {p} was not found in the repository root.")
+        return None, None
 
-    bundle = torch.load(p, map_location="cpu")
-    nc = len(class_names) 
-    model = EnsembleStackingNet(num_classes=nc)
+    # 3. Check File Size (Git LFS Validation)
+    file_size_mb = os.path.getsize(p) / (1024 * 1024)
+    if file_size_mb < 1.0:
+        st.error(f"⚠️ Git LFS Error: The file {p} is only {file_size_mb:.4f} MB. "
+                 "GitHub only uploaded the 'Pointer' file, not the actual 450MB model. "
+                 "Please check your Git LFS push status.")
+        return None, None
 
-    # Adaptive state_dict loading based on saved format
-    if isinstance(bundle, dict) and "states" in bundle:
-        s = bundle["states"]
-        model.stream1.load_state_dict(s["MobileNet_V3_Large"])
-        model.stream2.load_state_dict(s["ResNet50"])
-        model.stream3.load_state_dict(s["ViT_B16"])
-        if "meta_learner" in s:
-            model.meta_learner.load_state_dict(s["meta_learner"])
-    elif isinstance(bundle, dict) and "model_state_dict" in bundle:
-        model.load_state_dict(bundle["model_state_dict"])
-    else:
-        model.load_state_dict(bundle)
+    try:
+        # 4. Load the Model Bundle
+        bundle = torch.load(p, map_location="cpu")
+        
+        # Initialize the architecture
+        model = EnsembleStackingNet(num_classes=len(class_names))
 
-    model.eval()
-    # Returning model and class metadata
-    return model, {"classes": class_names}
+        # 5. Robust State Dict Loading
+        if isinstance(bundle, dict):
+            if "states" in bundle:
+                s = bundle["states"]
+                model.stream1.load_state_dict(s["MobileNet_V3_Large"])
+                model.stream2.load_state_dict(s["ResNet50"])
+                model.stream3.load_state_dict(s["ViT_B16"])
+                if "meta_learner" in s:
+                    model.meta_learner.load_state_dict(s["meta_learner"])
+            elif "model_state_dict" in bundle:
+                model.load_state_dict(bundle["model_state_dict"])
+            else:
+                model.load_state_dict(bundle)
+        else:
+            # If the bundle is the model itself
+            model = bundle
+
+        model.eval()
+        return model, {"classes": class_names}
+
+    except Exception as e:
+        st.error(f"🚀 Engine Start Failed: {e}")
+        return None, None
 
 
 engine, meta = load_engine()
