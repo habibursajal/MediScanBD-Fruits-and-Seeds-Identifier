@@ -374,7 +374,7 @@ def load_engine():
 engine, meta = load_engine()
 OK = engine is not None
 
-THRESHOLD = 30.0
+THRESHOLD = 10.0
 MODEL_NAMES = ["MobileNet", "ResNet50", "ViT-B16"]
 
 # Standard ImageNet normalization and resizing
@@ -454,7 +454,7 @@ with left:
     <div class="chips">
       <span class="chip"><span class="cdot"></span>224×224 input</span>
       <span class="chip"><span class="cdot"></span>3-model ensemble</span>
-      <span class="chip"><span class="cdot"></span>30% threshold</span>
+      <span class="chip"><span class="cdot"></span>10% threshold</span>
     </div>""", unsafe_allow_html=True)
 
     clicked = False
