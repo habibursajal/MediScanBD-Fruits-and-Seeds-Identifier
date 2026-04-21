@@ -299,48 +299,64 @@ def load_engine():
     if not os.path.exists(p):
         return None, None
 
-    bundle = torch.load(p, map_location="cpu")
-    nc     = len(bundle["classes"])
-    model  = EnsembleStackingNet(num_classes=nc)
+    # Manually define 19 herbal classes to prevent KeyError from model bundle
+    class_names = [
+        "Belleric Myrobalan", "Black Cumin", "Black Pepper", "Cardamom",
+        "Chebulic Myrobalan", "Cinnamon", "Clove", "Cumin Seeds",
+        "Fenugreek Seeds", "Flax Seed", "Garlic", "Ginger",
+        "Gooseberry", "Mace", "Nutmeg", "Psoralea Fruit",
+        "Sesame Seeds", "Star Anise", "Turmeric"
+    ]
 
-    if "states" in bundle:
+    bundle = torch.load(p, map_location="cpu")
+    nc = len(class_names) 
+    model = EnsembleStackingNet(num_classes=nc)
+
+    # Adaptive state_dict loading based on saved format
+    if isinstance(bundle, dict) and "states" in bundle:
         s = bundle["states"]
         model.stream1.load_state_dict(s["MobileNet_V3_Large"])
         model.stream2.load_state_dict(s["ResNet50"])
         model.stream3.load_state_dict(s["ViT_B16"])
         if "meta_learner" in s:
             model.meta_learner.load_state_dict(s["meta_learner"])
-    elif "model_state_dict" in bundle:
+    elif isinstance(bundle, dict) and "model_state_dict" in bundle:
         model.load_state_dict(bundle["model_state_dict"])
+    else:
+        model.load_state_dict(bundle)
 
     model.eval()
-    return model, bundle
+    # Returning model and class metadata
+    return model, {"classes": class_names}
 
 
 engine, meta = load_engine()
-OK           = engine is not None
+OK = engine is not None
 
-THRESHOLD    = 80.0
-MODEL_NAMES  = ["MobileNet", "ResNet50", "ViT-B16"]
+THRESHOLD = 80.0
+MODEL_NAMES = ["MobileNet", "ResNet50", "ViT-B16"]
 
+# Standard ImageNet normalization and resizing
 TF = transforms.Compose([
     transforms.Resize((224, 224)),
     transforms.ToTensor(),
-    transforms.Normalize([0.485, 0.456, 0.406],
-                         [0.229, 0.224, 0.225]),
+    transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225]),
 ])
-
 
 def infer(img: Image.Image):
     t = TF(img).unsqueeze(0)
     with torch.no_grad():
         final_logits, stream_logits = engine(t)
-        fp        = F.softmax(final_logits, dim=1)
+        fp = F.softmax(final_logits, dim=1)
         conf, idx = torch.max(fp, 1)
+    
+    # Calculate individual confidence scores for each backbone stream
     pm = {
         name: float(torch.max(F.softmax(logit, dim=1)).item()) * 100
         for name, logit in zip(MODEL_NAMES, stream_logits)
     }
+    
+    # Class index mapping via the manually defined list in meta
     return meta["classes"][idx.item()], float(conf.item()) * 100, pm
 
 
