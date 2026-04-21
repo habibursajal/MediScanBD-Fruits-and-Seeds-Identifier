@@ -48,45 +48,10 @@ html,body,[data-testid="stAppViewContainer"]{background:var(--bg)!important}
 [data-testid="stFileUploader"] small{
   color:rgba(255,255,255,.5)!important;font-size:12px!important;
   font-family:'DM Sans',sans-serif!important}
-
-  
-/* ১. বাটনটিকে মেইন কন্টেইনার হিসেবে সেট করা */
-[data-testid="stFileUploader"] button {
-    background-color: rgba(255, 255, 255, 0.05) !important;
-    border: 1px solid rgba(255, 255, 255, 0.2) !important;
-    border-radius: 8px !important;
-    height: 40px !important;
-    width: 120px !important;
-    color: transparent !important; /* ডিফল্ট সব লেখা স্বচ্ছ করে দেওয়া */
-    position: relative !important;
-}
-
-/* ২. বাটনের ভেতরের সব ডিফল্ট টেক্সট ও আইকন লুকিয়ে ফেলা */
-[data-testid="stFileUploader"] button * {
-    color: transparent !important;
-    display: none !important;
-}
-
-/* ৩. বাটনের ওপর নতুন করে শুধুমাত্র একটি "Upload" লেখা যোগ করা */
-[data-testid="stFileUploader"] button::before {
-    content: 'Upload' !important; /* আপনার কাঙ্ক্ষিত টেক্সট */
-    position: absolute !important;
-    left: 50% !important;
-    top: 50% !important;
-    transform: translate(-50%, -50%) !important;
-    color: #FFFFFF !important; /* পিওর সাদা রঙ */
-    font-size: 14px !important;
-    font-weight: 600 !important;
-    display: block !important;
-}
-
-/* ৪. হোভার এফেক্ট */
-[data-testid="stFileUploader"] button:hover {
-    background-color: rgba(255, 255, 255, 0.1) !important;
-    border-color: #FFFFFF !important;
-}
-
-
+[data-testid="stFileUploader"] button{
+  background:rgba(245,158,11,.15)!important;color:var(--amber)!important;
+  border:1px solid rgba(245,158,11,.35)!important;border-radius:7px!important;
+  font-weight:600!important;font-size:11px!important;padding:4px 12px!important}
 
 [data-testid="stImage"] img{
   border-radius:10px!important;width:100%!important;
