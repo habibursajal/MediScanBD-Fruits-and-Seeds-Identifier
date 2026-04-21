@@ -50,39 +50,40 @@ html,body,[data-testid="stAppViewContainer"]{background:var(--bg)!important}
   font-family:'DM Sans',sans-serif!important}
 
   
-/* ১. বাটনটিকে পরিষ্কার করা এবং সাদা টেক্সট সেট করা */
+/* ১. বাটনটিকে মেইন কন্টেইনার হিসেবে সেট করা */
 [data-testid="stFileUploader"] button {
     background-color: rgba(255, 255, 255, 0.05) !important;
-    color: #FFFFFF !important;
     border: 1px solid rgba(255, 255, 255, 0.2) !important;
     border-radius: 8px !important;
-    height: 38px !important;
-    padding: 0 20px !important;
+    height: 40px !important;
+    width: 120px !important;
+    color: transparent !important; /* ডিফল্ট সব লেখা স্বচ্ছ করে দেওয়া */
+    position: relative !important;
 }
 
-/* ২. বাটনের ভেতরের আইকন (SVG) লুকিয়ে ফেলা - এটিই ডাবল লেখার মূল কারণ */
-[data-testid="stFileUploader"] button svg {
+/* ২. বাটনের ভেতরের সব ডিফল্ট টেক্সট ও আইকন লুকিয়ে ফেলা */
+[data-testid="stFileUploader"] button * {
+    color: transparent !important;
     display: none !important;
 }
 
-/* ৩. বাটনের ভেতরের বাড়তি স্পেসিং বা ডাবল লেয়ার টেক্সট ফিক্স করা */
-[data-testid="stFileUploader"] button div[data-testid="stMarkdownContainer"] p {
-    margin: 0 !important;
+/* ৩. বাটনের ওপর নতুন করে শুধুমাত্র একটি "Upload" লেখা যোগ করা */
+[data-testid="stFileUploader"] button::before {
+    content: 'Upload' !important; /* আপনার কাঙ্ক্ষিত টেক্সট */
+    position: absolute !important;
+    left: 50% !important;
+    top: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    color: #FFFFFF !important; /* পিওর সাদা রঙ */
     font-size: 14px !important;
-    color: #FFFFFF !important;
+    font-weight: 600 !important;
+    display: block !important;
 }
 
-/* ৪. মাউস নিলে বাটনের উজ্জ্বলতা বাড়ানো */
+/* ৪. হোভার এফেক্ট */
 [data-testid="stFileUploader"] button:hover {
-    border-color: #FFFFFF !important;
     background-color: rgba(255, 255, 255, 0.1) !important;
-    transition: 0.3s;
-}
-
-/* ৩. হোভার এফেক্ট (মাউস নিলে কালার চেঞ্জ হবে) */
-[data-testid="stFileUploader"] button:hover {
-  border-color: #FFFFFF !important;
-  background: rgba(255, 255, 255, 0.1) !important;
+    border-color: #FFFFFF !important;
 }
 
 
