@@ -48,10 +48,30 @@ html,body,[data-testid="stAppViewContainer"]{background:var(--bg)!important}
 [data-testid="stFileUploader"] small{
   color:rgba(255,255,255,.5)!important;font-size:12px!important;
   font-family:'DM Sans',sans-serif!important}
-[data-testid="stFileUploader"] button{
-  background:rgba(245,158,11,.15)!important;color:var(--amber)!important;
-  border:1px solid rgba(245,158,11,.35)!important;border-radius:7px!important;
-  font-weight:600!important;font-size:11px!important;padding:4px 12px!important}
+  
+/* ── নতুন ও শুদ্ধ কোড ── */
+/* ১. বাটনটির ডিফল্ট ডিজাইন এবং কালার সেট করা (সাদা লেখা) */
+[data-testid="stFileUploader"] button {
+  background: rgba(255, 255, 255, 0.05) !important; /* হালকা ব্যাকগ্রাউন্ড */
+  color: #FFFFFF !important; /* পিওর সাদা লেখা */
+  border: 1px solid rgba(255, 255, 255, 0.2) !important; /* সাদা বর্ডার */
+  border-radius: 7px !important;
+  font-weight: 600 !important;
+  font-size: 12px !important;
+  padding: 6px 16px !important;
+}
+
+/* ২. বাটনের ভেতরের এক্সট্রা লেখা বা আইকন লুকিয়ে ফেলা (যাতে ডাবল না দেখায়) */
+[data-testid="stFileUploader"] button * {
+  color: inherit !important;
+}
+
+/* ৩. হোভার এফেক্ট (মাউস নিলে কালার চেঞ্জ হবে) */
+[data-testid="stFileUploader"] button:hover {
+  border-color: #FFFFFF !important;
+  background: rgba(255, 255, 255, 0.1) !important;
+}
+
 
 [data-testid="stImage"] img{
   border-radius:10px!important;width:100%!important;
