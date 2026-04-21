@@ -249,26 +249,29 @@ body *{box-sizing:border-box}
 class FeatureExtractor(nn.Module):
     def __init__(self, model_name: str, nc: int = 19):
         super().__init__()
-        # Initialize backbones to EXACTLY match the stripped versions in training
+        # Load pre-trained structures without weights to prepare for state_dict loading
         if model_name == "MobileNet_V3_Large":
             m = models.mobilenet_v3_large(weights=None)
-            self.feat_dim = 960  # Feature dim before the final classifier
-            m.classifier = nn.Identity() 
+            # Match Phase 3: Stripping the entire classifier
+            m.classifier = nn.Identity()
+            self.feat_dim = 960 
         elif model_name == "ResNet50":
             m = models.resnet50(weights=None)
-            self.feat_dim = 2048
+            # Match Phase 3: Stripping the fc layer
             m.fc = nn.Identity()
+            self.feat_dim = 2048
         elif model_name == "ViT_B16":
             m = models.vit_b_16(weights=None)
-            self.feat_dim = 768
+            # Match Phase 3: Stripping the heads
             m.heads = nn.Identity()
+            self.feat_dim = 768
         else:
             raise ValueError(f"Unknown backbone: {model_name}")
         self.backbone = m
 
     def forward(self, x):
         x = self.backbone(x)
-        # Flatten for consistency across CNNs and Transformers
+        # Flattening to ensure compatibility between CNN and Transformer outputs
         if len(x.shape) > 2: 
             x = torch.flatten(x, 1)
         return x
@@ -276,17 +279,16 @@ class FeatureExtractor(nn.Module):
 class EnsembleStackingNet(nn.Module):
     def __init__(self, num_classes: int = 19):
         super().__init__()
-        # Re-creating the 3-Stream architecture with individual heads
         self.stream1 = FeatureExtractor("MobileNet_V3_Large", num_classes)
         self.stream2 = FeatureExtractor("ResNet50", num_classes)
         self.stream3 = FeatureExtractor("ViT_B16", num_classes)
         
-        # [CRITICAL FIX] Adding the individual heads as per your saved state_dict
+        # [CRITICAL] These layer names MUST be head1, head2, head3 to match your .pth file
         self.head1 = nn.Linear(self.stream1.feat_dim, num_classes)
         self.head2 = nn.Linear(self.stream2.feat_dim, num_classes)
         self.head3 = nn.Linear(self.stream3.feat_dim, num_classes)
         
-        # Meta-learner to aggregate opinions
+        # Final Meta-Learner (Stacked Ensemble)
         self.meta_learner = nn.Sequential(
             nn.Linear(num_classes * 3, 256),
             nn.BatchNorm1d(256),
@@ -296,18 +298,19 @@ class EnsembleStackingNet(nn.Module):
         )
 
     def forward(self, x):
+        # Extract features
         f1 = self.stream1(x)
         f2 = self.stream2(x)
         f3 = self.stream3(x)
         
-        # Intermediate outputs from individual heads
+        # Pass through individual heads
         out1 = self.head1(f1)
         out2 = self.head2(f2)
         out3 = self.head3(f3)
         
-        # Concatenate for Meta-Learner
-        stacked = torch.cat([out1, out2, out3], dim=-1)
-        return self.meta_learner(stacked), [out1, out2, out3]
+        # Stacking opinions for the Meta-Learner
+        stacked_logits = torch.cat([out1, out2, out3], dim=-1)
+        return self.meta_learner(stacked_logits), [out1, out2, out3]
 
 
 @st.cache_resource
