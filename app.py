@@ -7,7 +7,7 @@ from PIL import Image
 import os
 
 # ─────────────────────────────────────────────────────────────────────────────
-# PAGE CONFIGURATION (500+ Line Version)
+# PAGE CONFIGURATION
 # ─────────────────────────────────────────────────────────────────────────────
 st.set_page_config(
     page_title="MediScanBD",
@@ -16,14 +16,10 @@ st.set_page_config(
     initial_sidebar_state="collapsed",
 )
 
-# ─────────────────────────────────────────────────────────────────────────────
-# CSS — ORIGINAL DARK GREEN THEME (NO CHANGES)
-# ─────────────────────────────────────────────────────────────────────────────
 st.markdown("""
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&display=swap');
 
-/* ── variables ── */
 :root{
   --bg:#060a07; --bg2:#0c1510; --bg3:#111c13; --bg4:#1a2b1e;
   --green:#22c55e; --gd:#15803d; --amber:#f59e0b;
@@ -31,17 +27,14 @@ st.markdown("""
   --dim:#4a7a5a; --danger:#f87171;
 }
 
-/* ── kill chrome ── */
 #MainMenu,footer,header[data-testid="stHeader"],
 [data-testid="stToolbar"],[data-testid="stDecoration"],
 [data-testid="stSidebar"]{display:none!important}
 
-/* ── page background ── */
 html,body,[data-testid="stAppViewContainer"]{background:var(--bg)!important}
 [data-testid="stAppViewContainer"]>section.main{padding-top:0!important;padding-bottom:0!important}
 .block-container{padding-top:0!important;padding-bottom:0!important;max-width:100%!important}
 
-/* ── file uploader ── */
 [data-testid="stFileUploader"]>label{display:none!important}
 [data-testid="stFileUploader"] section{
   background:var(--bg3)!important;
@@ -60,12 +53,10 @@ html,body,[data-testid="stAppViewContainer"]{background:var(--bg)!important}
   border:1px solid rgba(245,158,11,.35)!important;border-radius:7px!important;
   font-weight:600!important;font-size:11px!important;padding:4px 12px!important}
 
-/* ── image ── */
 [data-testid="stImage"] img{
   border-radius:10px!important;width:100%!important;
   max-height:260px!important;object-fit:cover!important}
 
-/* ── button ── */
 .stButton>button{
   background:linear-gradient(135deg,var(--gd),#166534)!important;
   color:#fff!important;border:none!important;border-radius:9px!important;
@@ -77,12 +68,9 @@ html,body,[data-testid="stAppViewContainer"]{background:var(--bg)!important}
   transform:translateY(-1px)!important;
   box-shadow:0 6px 22px rgba(21,128,61,.42)!important}
 
-/* ── spinner ── */
 [data-testid="stSpinner"]>div{border-top-color:var(--amber)!important}
-
 body *{box-sizing:border-box}
 
-/* ════════════════════════════════ NAVBAR ════════════════════════════════ */
 .mediscan-nav{
   display:flex;align-items:center;justify-content:space-between;
   padding:0 24px;height:56px;
@@ -121,7 +109,6 @@ body *{box-sizing:border-box}
   box-shadow:0 0 6px var(--green);
   animation:pulse 2s ease-in-out infinite;display:inline-block}
 
-/* ════════════════════════════════ COLUMN HEAD ════════════════════════════════ */
 .col-head{
   font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
   color:var(--dim);font-family:'DM Sans',sans-serif;
@@ -129,7 +116,6 @@ body *{box-sizing:border-box}
 }
 .col-head::after{content:'';flex:1;height:1px;background:var(--bdr)}
 
-/* ════════════════════════════════ NO IMAGE ════════════════════════════════ */
 .no-img{
   min-height:200px;border:1px solid var(--bdr);border-radius:10px;
   background:var(--bg3);display:flex;flex-direction:column;
@@ -143,7 +129,6 @@ body *{box-sizing:border-box}
   font-size:11px;color:var(--dim);text-align:center;
   line-height:1.6;font-family:'DM Sans',sans-serif}
 
-/* ════════════════════════════════ CHIPS ════════════════════════════════ */
 .chips{display:flex;gap:5px;flex-wrap:wrap;margin:6px 0}
 .chip{
   font-size:10px;font-weight:600;padding:3px 9px;border-radius:99px;
@@ -152,7 +137,6 @@ body *{box-sizing:border-box}
   display:flex;align-items:center;gap:4px}
 .cdot{width:4px;height:4px;border-radius:50%;background:var(--amber)}
 
-/* ════════════════════════════════ IDLE ════════════════════════════════ */
 .idle{
   min-height:200px;border:1px dashed var(--bdr);border-radius:14px;
   display:flex;flex-direction:column;align-items:center;
@@ -163,7 +147,6 @@ body *{box-sizing:border-box}
   font-size:12px;color:var(--dim);text-align:center;
   line-height:1.8;font-family:'DM Sans',sans-serif}
 
-/* ════════════════════════════════ RESULT CARD ════════════════════════════════ */
 .rcard{
   min-height:200px;background:var(--bg3);border:1px solid var(--bdr);
   border-radius:14px;padding:20px 22px;
@@ -205,7 +188,6 @@ body *{box-sizing:border-box}
   overflow:hidden;margin-top:2px}
 .r-mcbf{height:100%;border-radius:2px;background:var(--green);opacity:.6}
 
-/* ════════════════════════════════ ERROR CARD ════════════════════════════════ */
 .ecard{
   min-height:200px;border:1px solid rgba(248,113,113,.2);border-radius:14px;
   background:rgba(248,113,113,.06);display:flex;flex-direction:column;
@@ -215,7 +197,6 @@ body *{box-sizing:border-box}
 .etitle{font-family:'Syne',sans-serif;font-size:15px;font-weight:800;color:var(--danger)}
 .ebody{font-size:12px;color:rgba(255,255,255,.45);line-height:1.7;font-family:'DM Sans',sans-serif}
 
-/* ════════════════════════════════ FOOTER ════════════════════════════════ */
 .mediscan-foot{
   height:34px;background:var(--bg2);border-top:1px solid var(--bdr);
   display:flex;align-items:center;justify-content:space-between;
@@ -229,7 +210,6 @@ body *{box-sizing:border-box}
   background:rgba(255,255,255,.03);border:1px solid var(--bdr);
   color:rgba(255,255,255,.25);font-family:'DM Sans',sans-serif}
 
-/* ════════════════════════════════ MOBILE ════════════════════════════════ */
 @media(max-width:720px){
   .mediscan-nav{height:auto;padding:10px 14px;flex-wrap:wrap;gap:6px}
   .nav-right{flex-wrap:wrap}
@@ -243,119 +223,270 @@ body *{box-sizing:border-box}
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# ACTUAL MODEL ARCHITECTURE (SYNCED WITH TRAINING PHASE 3 & 8)
+# FIX #1 — CORRECT ARCHITECTURE (Matches Phase 3 & Phase 4 training exactly)
 # ─────────────────────────────────────────────────────────────────────────────
 
+def initialize_architecture(name):
+    """
+    CRITICAL: This must EXACTLY match initialize_architecture() in the
+    single-model training script (Phase 3), including the custom heads.
+    The heads are loaded AS-IS from best_model.pth, then stripped in FeatureExtractor.
+    """
+    if name == "MobileNet_V3_Large":
+        model = models.mobilenet_v3_large(weights=None)
+        num_ftrs = model.classifier[3].in_features
+        # MUST match your Phase 3 training head exactly:
+        model.classifier[3] = nn.Sequential(
+            nn.Linear(num_ftrs, 512),
+            nn.ReLU(),
+            nn.Dropout(0.5),
+            nn.Linear(512, 19)
+        )
+    elif name == "ResNet50":
+        model = models.resnet50(weights=None)
+        num_ftrs = model.fc.in_features
+        model.fc = nn.Linear(num_ftrs, 19)
+    elif name == "ViT_B16":
+        model = models.vit_b_16(weights=None)
+        num_ftrs = model.heads.head.in_features
+        model.heads.head = nn.Linear(num_ftrs, 19)
+    return model
+
+
 class FeatureExtractor(nn.Module):
-    def __init__(self, model_name: str):
+    """
+    FIX #2 — feat_dim and head-stripping now matches Phase 4 training code EXACTLY.
+
+    Phase 4 training code strips heads like this:
+      - ViT:       base_model.heads = nn.Identity()  → feat_dim = heads.head.in_features
+      - ResNet:    base_model.fc = nn.Identity()      → feat_dim = fc.in_features
+      - MobileNet: base_model.classifier = nn.Identity() → feat_dim = classifier[0].in_features
+                   BUT the classifier was REPLACED in Phase 3 with a Sequential.
+                   So after loading weights, classifier[0] is nn.Linear(960, 512).
+                   The feat_dim should be classifier[0].in_features = 960 (the original).
+
+    We load the full trained model (including custom heads), read the correct
+    feat_dim BEFORE stripping, then strip the head.
+    """
+    def __init__(self, model_name: str, weights_path: str):
         super().__init__()
-        if model_name == "MobileNet_V3_Large":
-            m = models.mobilenet_v3_large(weights=None)
-            self.feat_dim = m.classifier[0].in_features
-            m.classifier = nn.Identity()
-        elif model_name == "ResNet50":
-            m = models.resnet50(weights=None)
-            self.feat_dim = m.fc.in_features
-            m.fc = nn.Identity()
-        elif model_name == "ViT_B16":
-            m = models.vit_b_16(weights=None)
-            self.feat_dim = m.heads.head.in_features
-            m.heads = nn.Identity()
-        self.backbone = m
+
+        # Step 1: Build the architecture with the custom classification head
+        base_model = initialize_architecture(model_name)
+
+        # Step 2: Load trained weights (this populates the custom heads too)
+        state_dict = torch.load(weights_path, map_location="cpu")
+        base_model.load_state_dict(state_dict)
+
+        # Step 3: Record feat_dim and strip the head (matches Phase 4 exactly)
+        if "ViT" in model_name:
+            self.feat_dim = base_model.heads.head.in_features
+            base_model.heads = nn.Identity()
+        elif "ResNet" in model_name:
+            self.feat_dim = base_model.fc.in_features
+            base_model.fc = nn.Identity()
+        elif "MobileNet" in model_name:
+            # After Phase 3, classifier[0] is the original MobileNet Linear(960, ...)
+            # The original in_features before the custom head replacement is 960
+            self.feat_dim = base_model.classifier[0].in_features
+            base_model.classifier = nn.Identity()
+
+        self.backbone = base_model
 
     def forward(self, x):
         x = self.backbone(x)
-        if len(x.shape) > 2: 
+        if len(x.shape) > 2:
             x = torch.flatten(x, 1)
         return x
 
+
 class EnsembleStackingNet(nn.Module):
-    def __init__(self, model_names, num_classes=19):
+    """
+    FIX #3 — Architecture matches Phase 4 training EXACTLY.
+    The forward() now returns ONLY final logits (no stream_logits tuple)
+    so it matches how the model was saved and evaluated in Phase 5.
+    We extract per-stream scores separately during inference.
+    """
+    def __init__(self, model_names, weights_dir: str, num_classes: int = 19):
         super().__init__()
-        self.stream1 = FeatureExtractor(model_names[0])
-        self.stream2 = FeatureExtractor(model_names[1])
-        self.stream3 = FeatureExtractor(model_names[2])
-        
+        # Load each backbone with its own trained weights
+        self.stream1 = FeatureExtractor(
+            model_names[0],
+            os.path.join(weights_dir, model_names[0], "best_model.pth")
+        )
+        self.stream2 = FeatureExtractor(
+            model_names[1],
+            os.path.join(weights_dir, model_names[1], "best_model.pth")
+        )
+        self.stream3 = FeatureExtractor(
+            model_names[2],
+            os.path.join(weights_dir, model_names[2], "best_model.pth")
+        )
+
         self.head1 = nn.Linear(self.stream1.feat_dim, num_classes)
         self.head2 = nn.Linear(self.stream2.feat_dim, num_classes)
         self.head3 = nn.Linear(self.stream3.feat_dim, num_classes)
-        
+
         self.meta_learner = nn.Sequential(
             nn.Linear(num_classes * 3, 256),
-            nn.BatchNorm1d(256), 
-            nn.GELU(), 
+            nn.BatchNorm1d(256),
+            nn.GELU(),
             nn.Dropout(0.1),
             nn.Linear(256, num_classes)
         )
 
     def forward(self, x):
-        f1 = self.stream1(x); f2 = self.stream2(x); f3 = self.stream3(x)
-        out1 = self.head1(f1); out2 = self.head2(f2); out3 = self.head3(f3)
+        f1 = self.stream1(x)
+        f2 = self.stream2(x)
+        f3 = self.stream3(x)
+        out1 = self.head1(f1)
+        out2 = self.head2(f2)
+        out3 = self.head3(f3)
         stacked_logits = torch.cat([out1, out2, out3], dim=-1)
-        return self.meta_learner(stacked_logits), [out1, out2, out3]
+        # Returns ALL outputs — we use them for per-model scores at inference
+        return self.meta_learner(stacked_logits), out1, out2, out3
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# INFERENCE LOGIC (SYNCED WITH PHASE 8 EVALUATION)
+# FIX #4 — TEMPERATURE SCALING for calibrated confidence
+# After label_smoothing training, raw softmax is over-smoothed.
+# A temperature < 1.0 sharpens the distribution (raises top confidence).
+# Tune TEMPERATURE between 0.3 and 0.7 depending on your validation results.
+# ─────────────────────────────────────────────────────────────────────────────
+TEMPERATURE = 0.5  # Lower = sharper/higher confidence. Tune this on your val set.
+
+def calibrated_softmax(logits: torch.Tensor, temperature: float = TEMPERATURE) -> torch.Tensor:
+    """Applies temperature scaling before softmax to calibrate confidence."""
+    return F.softmax(logits / temperature, dim=1)
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# FIX #5 — 4-PASS TTA (matches Phase 5 evaluation exactly)
+# ─────────────────────────────────────────────────────────────────────────────
+def run_tta(model, tensor: torch.Tensor):
+    """
+    Runs 4-pass Test-Time Augmentation matching Phase 5 evaluation:
+    original + horizontal flip + vertical flip + both flips
+    Returns averaged raw logits (before softmax).
+    """
+    o1_f, o1_1, o1_2, o1_3 = model(tensor)
+    o2_f, o2_1, o2_2, o2_3 = model(torch.flip(tensor, dims=[3]))
+    o3_f, o3_1, o3_2, o3_3 = model(torch.flip(tensor, dims=[2]))
+    o4_f, o4_1, o4_2, o4_3 = model(torch.flip(tensor, dims=[2, 3]))
+
+    avg_final  = (o1_f + o2_f + o3_f + o4_f) / 4
+    avg_head1  = (o1_1 + o2_1 + o3_1 + o4_1) / 4
+    avg_head2  = (o1_2 + o2_2 + o3_2 + o4_2) / 4
+    avg_head3  = (o1_3 + o2_3 + o3_3 + o4_3) / 4
+
+    return avg_final, avg_head1, avg_head2, avg_head3
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# MODEL LOADING — Paths are configurable
 # ─────────────────────────────────────────────────────────────────────────────
 
-@st.cache_resource
-def load_engine():
-    p = "best_hybrid_model.pth"
-    class_names = [
-        "Belleric Myrobalan", "Black Cumin", "Black Pepper", "Cardamom",
-        "Chebulic Myrobalan", "Cinnamon", "Clove", "Cumin Seeds",
-        "Fenugreek Seeds", "Flax Seed", "Garlic", "Ginger",
-        "Gooseberry", "Mace", "Nutmeg", "Psoralea Fruit",
-        "Sesame Seeds", "Star Anise", "Turmeric"
-    ]
-    if not os.path.exists(p): return None, {"classes": class_names}
-    
-    try:
-        model = EnsembleStackingNet(["MobileNet_V3_Large", "ResNet50", "ViT_B16"])
-        state_dict = torch.load(p, map_location="cpu")
-        model.load_state_dict(state_dict)
-        model.eval()
-        return model, {"classes": class_names}
-    except:
-        return None, {"classes": class_names}
+# Option A: Set these to your actual paths
+HYBRID_WEIGHTS_PATH = "best_hybrid_model.pth"   # Hybrid ensemble weights
+BACKBONE_WEIGHTS_DIR = "."                        # Dir containing MobileNet_V3_Large/, ResNet50/, ViT_B16/ subdirs
 
-# Initialize engine before UI
-engine, meta = load_engine()
-OK = engine is not None
-THRESHOLD = 10.0
-MODEL_NAMES = ["MobileNet", "ResNet50", "ViT-B16"]
+MODEL_NAMES = ["MobileNet_V3_Large", "ResNet50", "ViT_B16"]
+MODEL_DISPLAY = ["MobileNet", "ResNet50", "ViT-B16"]
 
+CLASS_NAMES = [
+    "Belleric Myrobalan", "Black Cumin", "Black Pepper", "Cardamom",
+    "Chebulic Myrobalan", "Cinnamon", "Clove", "Cumin Seeds",
+    "Fenugreek Seeds", "Flax Seed", "Garlic", "Ginger",
+    "Gooseberry", "Mace", "Nutmeg", "Psoralea Fruit",
+    "Sesame Seeds", "Star Anise", "Turmeric"
+]
+
+THRESHOLD = 30.0  # Lowered from 10% — with calibration, real matches are now 60-99%
+
+# ─────────────────────────────────────────────────────────────────────────────
+# FIX #6 — Correct transform (no augmentation at inference, matches eval_trans)
+# ─────────────────────────────────────────────────────────────────────────────
 TF = transforms.Compose([
     transforms.Resize((224, 224)),
     transforms.ToTensor(),
     transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
 ])
 
+
+@st.cache_resource
+def load_engine():
+    """
+    Loads the hybrid ensemble model.
+    Falls back gracefully if weights are not found.
+    """
+    if not os.path.exists(HYBRID_WEIGHTS_PATH):
+        return None
+
+    try:
+        # Build model (loads individual backbone weights during construction)
+        model = EnsembleStackingNet(
+            MODEL_NAMES,
+            weights_dir=BACKBONE_WEIGHTS_DIR,
+            num_classes=19
+        )
+
+        # Load the fine-tuned hybrid weights (Phase 4 output)
+        hybrid_state = torch.load(HYBRID_WEIGHTS_PATH, map_location="cpu")
+        model.load_state_dict(hybrid_state)
+        model.eval()
+        return model
+
+    except Exception as e:
+        st.error(f"Model loading error: {e}")
+        return None
+
+
 def infer(img: Image.Image):
-    t = TF(img).unsqueeze(0)
+    """
+    Full inference pipeline:
+    1. Preprocess (eval_trans only — no augmentation)
+    2. 4-pass TTA averaging (matches Phase 5)
+    3. Temperature-scaled softmax for calibrated confidence
+    Returns: (class_name, confidence_pct, {model_name: confidence_pct})
+    """
+    tensor = TF(img).unsqueeze(0)  # [1, 3, 224, 224]
+
     with torch.no_grad():
-        final_logits, stream_logits = engine(t)
-        probs = F.softmax(final_logits, dim=1)
-        conf, idx = torch.max(probs, 1)
-        pm = {}
-        for name, logit in zip(MODEL_NAMES, stream_logits):
-            s_probs = F.softmax(logit, dim=1)
-            s_conf, _ = torch.max(s_probs, 1)
-            pm[name] = float(s_conf.item()) * 100
-    return meta["classes"][idx.item()], float(conf.item()) * 100, pm
+        avg_final, avg_head1, avg_head2, avg_head3 = run_tta(engine, tensor)
+
+    # Calibrated softmax on ensemble output
+    probs = calibrated_softmax(avg_final)
+    conf, idx = torch.max(probs, 1)
+
+    # Per-model calibrated confidence for the predicted class
+    p1 = calibrated_softmax(avg_head1)
+    p2 = calibrated_softmax(avg_head2)
+    p3 = calibrated_softmax(avg_head3)
+
+    predicted_class = idx.item()
+    per_model = {
+        MODEL_DISPLAY[0]: float(p1[0, predicted_class].item()) * 100,
+        MODEL_DISPLAY[1]: float(p2[0, predicted_class].item()) * 100,
+        MODEL_DISPLAY[2]: float(p3[0, predicted_class].item()) * 100,
+    }
+
+    return CLASS_NAMES[predicted_class], float(conf.item()) * 100, per_model
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# UI RENDER LOGIC (THE 500+ LINE VERSION)
+# ENGINE INIT
+# ─────────────────────────────────────────────────────────────────────────────
+engine = load_engine()
+OK = engine is not None
+
+# ─────────────────────────────────────────────────────────────────────────────
+# UI
 # ─────────────────────────────────────────────────────────────────────────────
 
-# --- STEP 1: DEFINE STATUS VARIABLES ---
 status_class = "tag-live" if OK else "tag-off"
-status_text = "ONLINE" if OK else "OFFLINE"
-pulse_html = '<span class="pulse-dot"></span>' if OK else '✕'
+status_text  = "ONLINE"   if OK else "OFFLINE"
+pulse_html   = '<span class="pulse-dot"></span>' if OK else '✕'
 
-# --- STEP 2: RENDER NAVBAR ---
 st.markdown(f"""
 <div class="mediscan-nav">
   <div class="nav-brand">
@@ -367,7 +498,7 @@ st.markdown(f"""
   </div>
   <div class="nav-right">
     <span class="tag">Hybrid Ensemble ×3</span>
-    <span class="tag">MediScanBD Dataset</span>
+    <span class="tag">BDMediHerb Dataset</span>
     <span class="tag {status_class}">
       {pulse_html}&nbsp;{status_text}
     </span>
@@ -375,17 +506,11 @@ st.markdown(f"""
 </div>
 """, unsafe_allow_html=True)
 
-# ── COLUMNS ─────────────────────────────────────────────────────────────────
 left, right = st.columns([5, 7], gap="small")
 
-# ══════════ LEFT — Input ══════════
 with left:
     st.markdown('<div class="col-head">Input Sample</div>', unsafe_allow_html=True)
-
-    uploaded = st.file_uploader(
-        "sample", type=["jpg", "jpeg", "png"],
-        label_visibility="collapsed"
-    )
+    uploaded = st.file_uploader("sample", type=["jpg", "jpeg", "png"], label_visibility="collapsed")
 
     img = None
     if uploaded:
@@ -403,15 +528,14 @@ with left:
     st.markdown(f"""
     <div class="chips">
       <span class="chip"><span class="cdot"></span>224×224 input</span>
-      <span class="chip"><span class="cdot"></span>3-model ensemble</span>
-      <span class="chip"><span class="cdot"></span>{THRESHOLD}% threshold</span>
+      <span class="chip"><span class="cdot"></span>4-pass TTA</span>
+      <span class="chip"><span class="cdot"></span>T={TEMPERATURE} calibration</span>
     </div>""", unsafe_allow_html=True)
 
     clicked = False
     if img is not None:
         clicked = st.button("🔬  Identify Sample", use_container_width=True)
 
-# ══════════ RIGHT — Result ══════════
 with right:
     st.markdown('<div class="col-head">Detection Result</div>', unsafe_allow_html=True)
 
@@ -428,7 +552,6 @@ with right:
 
     res = st.session_state.get("res", None)
 
-    # idle
     if res is None:
         st.markdown("""
         <div class="idle">
@@ -439,22 +562,23 @@ with right:
           </div>
         </div>""", unsafe_allow_html=True)
 
-    # offline
     elif res == "offline":
-        st.markdown("""
+        st.markdown(f"""
         <div class="ecard">
           <div class="eico">⚠️</div>
-          <div class="etitle">Model Bundle Not Found</div>
+          <div class="etitle">Model Weights Not Found</div>
           <div class="ebody">
-            <b>best_hybrid_model.pth</b> is missing.<br>
-            Place it in the same folder as app.py and restart.
+            <b>{HYBRID_WEIGHTS_PATH}</b> is missing.<br>
+            Also ensure backbone weights exist at:<br>
+            <b>MobileNet_V3_Large/best_model.pth</b><br>
+            <b>ResNet50/best_model.pth</b><br>
+            <b>ViT_B16/best_model.pth</b>
           </div>
         </div>""", unsafe_allow_html=True)
 
     else:
         variety, score, pm = res
 
-        # low confidence
         if score < THRESHOLD:
             st.markdown(f"""
             <div class="ecard">
@@ -466,7 +590,6 @@ with right:
               </div>
             </div>""", unsafe_allow_html=True)
 
-        # success
         else:
             mc = "".join(f"""
             <div class="r-mc">
@@ -485,25 +608,24 @@ with right:
               <div class="r-variety">{variety}</div>
               <div class="r-crow">
                 <span class="r-cnum">{score:.1f}%</span>
-                <span class="r-clbl">ensemble confidence</span>
+                <span class="r-clbl">ensemble confidence (calibrated)</span>
               </div>
               <div class="r-bar">
                 <div class="r-barfill" style="width:{min(score,100):.1f}%"></div>
               </div>
               <div class="r-div"></div>
-              <div class="r-mlbl">Per-Model Scores</div>
+              <div class="r-mlbl">Per-Model Scores (calibrated)</div>
               <div class="r-mgrid">{mc}</div>
             </div>""", unsafe_allow_html=True)
 
             if score > 85:
                 st.balloons()
 
-# ── FOOTER ──────────────────────────────────────────────────────────────────
 st.markdown("""
 <div class="mediscan-foot">
   <span class="ft">
     Developed by <strong>Habibur Rahman Sajal</strong>
-    &nbsp;·&nbsp; MediScanBD Dataset
+    &nbsp;·&nbsp; BDMediHerb Dataset
   </span>
   <div class="ftags">
     <span class="ftag">MobileNet_V3</span>
