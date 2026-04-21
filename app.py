@@ -358,6 +358,12 @@ def infer(img: Image.Image):
 # ─────────────────────────────────────────────────────────────────────────────
 
 # ── NAVBAR ──────────────────────────────────────────────────────────────────
+# --- STEP 1: DEFINE STATUS VARIABLES ---
+status_class = "tag-live" if OK else "tag-off"
+status_text = "ONLINE" if OK else "OFFLINE"
+pulse_html = '<span class="pulse-dot"></span>' if OK else '✕'
+
+# --- STEP 2: RENDER NAVBAR ---
 st.markdown(f"""
 <div class="mediscan-nav">
   <div class="nav-brand">
@@ -370,8 +376,8 @@ st.markdown(f"""
   <div class="nav-right">
     <span class="tag">Hybrid Ensemble ×3</span>
     <span class="tag">MediScanBD Dataset</span>
-    <span class="tag {'tag-live' if OK else 'tag-off'}">
-      {'<span class="pulse-dot"></span>' if OK else '✕'}&nbsp;{'ONLINE' if OK else 'OFFLINE'}
+    <span class="tag {status_class}">
+      {pulse_html}&nbsp;{status_text}
     </span>
   </div>
 </div>
