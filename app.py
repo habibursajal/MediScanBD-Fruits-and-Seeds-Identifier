@@ -401,7 +401,7 @@ CLASS_NAMES = [
     "Sesame Seeds", "Star Anise", "Turmeric"
 ]
 
-THRESHOLD = 30.0  # Lowered from 10% — with calibration, real matches are now 60-99%
+THRESHOLD = 50.0  # Lowered from 10% — with calibration, real matches are now 60-99%
 
 # ─────────────────────────────────────────────────────────────────────────────
 # FIX #6 — Correct transform (no augmentation at inference, matches eval_trans)
@@ -625,7 +625,7 @@ st.markdown("""
 <div class="mediscan-foot">
   <span class="ft">
     Developed by <strong>Habibur Rahman Sajal</strong>
-    &nbsp;·&nbsp; BDMediHerb Dataset
+    &nbsp;·&nbsp; MediScanBD Fruits & Seed Identifier
   </span>
   <div class="ftags">
     <span class="ftag">MobileNet_V3</span>
