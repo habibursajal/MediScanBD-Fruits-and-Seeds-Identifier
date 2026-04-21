@@ -401,7 +401,7 @@ CLASS_NAMES = [
     "Sesame Seeds", "Star Anise", "Turmeric"
 ]
 
-THRESHOLD = 50.0  # Lowered from 10% — with calibration, real matches are now 60-99%
+THRESHOLD = 10.0  # Lowered from 10% — with calibration, real matches are now 60-99%
 
 # ─────────────────────────────────────────────────────────────────────────────
 # FIX #6 — Correct transform (no augmentation at inference, matches eval_trans)
