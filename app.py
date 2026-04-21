@@ -48,22 +48,35 @@ html,body,[data-testid="stAppViewContainer"]{background:var(--bg)!important}
 [data-testid="stFileUploader"] small{
   color:rgba(255,255,255,.5)!important;font-size:12px!important;
   font-family:'DM Sans',sans-serif!important}
+
   
-/* ── নতুন ও শুদ্ধ কোড ── */
-/* ১. বাটনটির ডিফল্ট ডিজাইন এবং কালার সেট করা (সাদা লেখা) */
+/* ১. বাটনটিকে পরিষ্কার করা এবং সাদা টেক্সট সেট করা */
 [data-testid="stFileUploader"] button {
-  background: rgba(255, 255, 255, 0.05) !important; /* হালকা ব্যাকগ্রাউন্ড */
-  color: #FFFFFF !important; /* পিওর সাদা লেখা */
-  border: 1px solid rgba(255, 255, 255, 0.2) !important; /* সাদা বর্ডার */
-  border-radius: 7px !important;
-  font-weight: 600 !important;
-  font-size: 12px !important;
-  padding: 6px 16px !important;
+    background-color: rgba(255, 255, 255, 0.05) !important;
+    color: #FFFFFF !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    border-radius: 8px !important;
+    height: 38px !important;
+    padding: 0 20px !important;
 }
 
-/* ২. বাটনের ভেতরের এক্সট্রা লেখা বা আইকন লুকিয়ে ফেলা (যাতে ডাবল না দেখায়) */
-[data-testid="stFileUploader"] button * {
-  color: inherit !important;
+/* ২. বাটনের ভেতরের আইকন (SVG) লুকিয়ে ফেলা - এটিই ডাবল লেখার মূল কারণ */
+[data-testid="stFileUploader"] button svg {
+    display: none !important;
+}
+
+/* ৩. বাটনের ভেতরের বাড়তি স্পেসিং বা ডাবল লেয়ার টেক্সট ফিক্স করা */
+[data-testid="stFileUploader"] button div[data-testid="stMarkdownContainer"] p {
+    margin: 0 !important;
+    font-size: 14px !important;
+    color: #FFFFFF !important;
+}
+
+/* ৪. মাউস নিলে বাটনের উজ্জ্বলতা বাড়ানো */
+[data-testid="stFileUploader"] button:hover {
+    border-color: #FFFFFF !important;
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    transition: 0.3s;
 }
 
 /* ৩. হোভার এফেক্ট (মাউস নিলে কালার চেঞ্জ হবে) */
@@ -71,6 +84,7 @@ html,body,[data-testid="stAppViewContainer"]{background:var(--bg)!important}
   border-color: #FFFFFF !important;
   background: rgba(255, 255, 255, 0.1) !important;
 }
+
 
 
 [data-testid="stImage"] img{
