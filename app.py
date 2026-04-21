@@ -323,7 +323,7 @@ def load_engine():
 # Initialize engine before UI
 engine, meta = load_engine()
 OK = engine is not None
-THRESHOLD = 80.0
+THRESHOLD = 10.0
 MODEL_NAMES = ["MobileNet", "ResNet50", "ViT-B16"]
 
 TF = transforms.Compose([
