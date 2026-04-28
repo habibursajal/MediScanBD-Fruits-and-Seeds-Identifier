@@ -27,16 +27,15 @@ The TSHE framework utilizes a stacking ensemble strategy to fuse spatial, textur
 ---
 
 ## 📂 Repository Structure
-```
+```directory
 MediScanBD-Fruits-and-Seeds-Identifier/
 ├── Training_Code/               # Core research and training scripts
 │   ├── All_Models_Traning_Code.ipynb  # Primary model training pipeline
 │   └── Ablation_Study_Code.ipynb     # Component-wise contribution analysis
 ├── Figures/                     # High-resolution research visualizations
-│   ├── Fig. 17. Learning Curves/      # Training vs. Validation progression charts
-│   ├── Fig. 18. Confusion matrixs/    # Multi-class performance evaluation grids
-│   ├── Fig. 21. Misclassification.jpg # Qualitative taxonomy of failure modes
-│   └── Fig. 22. XAI_Analysis.png      # Grad-CAM++ and LIME interpretability maps
+│   ├── Fig. 17. Learning Curves/      # Folder containing learning curve sub-plots
+│   ├── Fig. 18. Confusion matrixs/     # Folder containing confusion matrix sub-plots
+│   └── ... (Individual Figures Fig 1 - Fig 25)
 ├── MobileNet_V3_Large/          # Backbone-specific weights and log files
 ├── ResNet50/                    # Backbone-specific weights and log files
 ├── ViT_B16/                     # Backbone-specific weights and log files
