@@ -109,7 +109,7 @@ If you utilize this research or implementation, please cite the work as follows:
 
 ```bibtex
 @article{sajal2026mediscanbd,
-  title={BDMediHerb: Machine Vision-Based Classification of Medicinal Fruits and Seeds Using Triple-Stream Hybrid Deep Learning and Explainable AI},
+  title={BDMediHerb: Machine Vision-Based Classification of Medicinal Fruits and Seeds Using Triple-Stream Hybrid Deep Learning, Ensemble Models, and Explainable AI},
   author={Sajal, Habibur Rahman and Islam, Mohammad Monirul and others},
   journal={TBD},
   year={2026}
