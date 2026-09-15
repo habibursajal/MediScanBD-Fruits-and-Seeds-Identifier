@@ -1,0 +1,17 @@
+(fusionvit) E:\Research Project\BDMediHerb>python scripts/A_ablation_condition.py
+================================================================================
+[CONDITION A] Processing Seeds: [42, 43, 44, 45, 46]
+================================================================================
+   [Seed 42 Complete] Accuracy: 98.42% | F1: 0.9842
+   [INFO] Classification Report saved to: E:\Research Project\BDMediHerb\BDMediHerb_Reviewer_Revision\Reviewer_Ablation_Statistics\seed_42\checkpoints\A_CE_NoTTA_classification_report.csv
+   [Seed 43 Complete] Accuracy: 98.25% | F1: 0.9825
+   [INFO] Classification Report saved to: E:\Research Project\BDMediHerb\BDMediHerb_Reviewer_Revision\Reviewer_Ablation_Statistics\seed_43\checkpoints\A_CE_NoTTA_classification_report.csv
+   [Seed 44 Complete] Accuracy: 98.42% | F1: 0.9842
+   [INFO] Classification Report saved to: E:\Research Project\BDMediHerb\BDMediHerb_Reviewer_Revision\Reviewer_Ablation_Statistics\seed_44\checkpoints\A_CE_NoTTA_classification_report.csv
+   [Seed 45 Complete] Accuracy: 98.07% | F1: 0.9807
+   [INFO] Classification Report saved to: E:\Research Project\BDMediHerb\BDMediHerb_Reviewer_Revision\Reviewer_Ablation_Statistics\seed_45\checkpoints\A_CE_NoTTA_classification_report.csv
+   [Seed 46 Complete] Accuracy: 98.42% | F1: 0.9842
+   [INFO] Classification Report saved to: E:\Research Project\BDMediHerb\BDMediHerb_Reviewer_Revision\Reviewer_Ablation_Statistics\seed_46\checkpoints\A_CE_NoTTA_classification_report.csv
+================================================================================
+[SUMMARY SAVED] Combined seed results saved to: E:\Research Project\BDMediHerb\BDMediHerb_Reviewer_Revision\Reviewer_Ablation_Statistics\A_CE_NoTTA_all_seeds_summary.csv
+================================================================================

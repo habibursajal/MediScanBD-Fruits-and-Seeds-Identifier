@@ -1,0 +1,17 @@
+(fusionvit) E:\Research Project\BDMediHerb>python scripts/C_ablation_condition.py
+================================================================================
+[CONDITION C] Processing Seeds: [42, 43, 44, 45, 46]
+================================================================================
+   [Seed 42 Complete] Accuracy: 98.77% | F1: 0.9877
+   [INFO] Classification Report saved to: E:\Research Project\BDMediHerb\BDMediHerb_Reviewer_Revision\Reviewer_Ablation_Statistics\seed_42\checkpoints\C_CE_4PassTTA_classification_report.csv
+   [Seed 43 Complete] Accuracy: 98.77% | F1: 0.9877
+   [INFO] Classification Report saved to: E:\Research Project\BDMediHerb\BDMediHerb_Reviewer_Revision\Reviewer_Ablation_Statistics\seed_43\checkpoints\C_CE_4PassTTA_classification_report.csv
+   [Seed 44 Complete] Accuracy: 98.77% | F1: 0.9877
+   [INFO] Classification Report saved to: E:\Research Project\BDMediHerb\BDMediHerb_Reviewer_Revision\Reviewer_Ablation_Statistics\seed_44\checkpoints\C_CE_4PassTTA_classification_report.csv
+   [Seed 45 Complete] Accuracy: 98.77% | F1: 0.9877
+   [INFO] Classification Report saved to: E:\Research Project\BDMediHerb\BDMediHerb_Reviewer_Revision\Reviewer_Ablation_Statistics\seed_45\checkpoints\C_CE_4PassTTA_classification_report.csv
+   [Seed 46 Complete] Accuracy: 98.77% | F1: 0.9877
+   [INFO] Classification Report saved to: E:\Research Project\BDMediHerb\BDMediHerb_Reviewer_Revision\Reviewer_Ablation_Statistics\seed_46\checkpoints\C_CE_4PassTTA_classification_report.csv
+================================================================================
+[SUMMARY SAVED] Combined seed results saved to: E:\Research Project\BDMediHerb\BDMediHerb_Reviewer_Revision\Reviewer_Ablation_Statistics\C_CE_4PassTTA_all_seeds_summary.csv
+================================================================================

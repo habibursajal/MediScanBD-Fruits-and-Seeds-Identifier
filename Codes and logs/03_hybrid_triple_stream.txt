@@ -1,0 +1,61 @@
+(fusionvit) E:\Research Project\BDMediHerb\scripts>python 03_hybrid_triple_stream.py           
+[ENV] Local Windows PC detected
+
+================================================================================
+BDMEDIHERB TRIPLE-STREAM HYBRID MODEL TRAINING (TSHE PIPELINE)
+================================================================================
+[INFO] Loaded verified shared split from: E:\Research Project\BDMediHerb\BDMediHerb_Reviewer_Revision\shared_stratified_split.json
+Dataset: 3800 images | 19 classes | Signature=cdfa2400302c78be...
+Split: Train=2660, Val=570, Test=570
+
+Epoch    | Tr. Loss   | Tr. Acc    | Val Loss   | Val Acc    | Inference    | Time
+-------------------------------------------------------------------------------------------------------------------
+1        | 1.3539     | 0.7722     | 0.6294     | 0.9895     | 7.7431     ms | 130.14  s
+ ---> [SAVED] Model improved to 0.9895. Checkpoint synced.
+2        | 0.4222     | 0.9917     | 0.2483     | 0.9947     | 7.7873     ms | 113.04  s
+ ---> [SAVED] Model improved to 0.9947. Checkpoint synced.
+3        | 0.2067     | 0.9951     | 0.1516     | 0.9947     | 7.7890     ms | 113.17  s
+4        | 0.1479     | 0.9970     | 0.1183     | 0.9947     | 7.7765     ms | 113.2   s
+5        | 0.1076     | 0.9966     | 0.0951     | 0.9947     | 7.7984     ms | 113.36  s
+6        | 0.0989     | 0.9955     | 0.0873     | 0.9947     | 7.8058     ms | 113.04  s
+7        | 0.0863     | 0.9959     | 0.0837     | 0.9965     | 7.8122     ms | 116.15  s
+ ---> [SAVED] Model improved to 0.9965. Checkpoint synced.
+8        | 0.0808     | 0.9966     | 0.0831     | 0.9965     | 7.8221     ms | 114.97  s
+9        | 0.0798     | 0.9970     | 0.0735     | 0.9947     | 7.8129     ms | 115.41  s
+10       | 0.0757     | 0.9970     | 0.0742     | 0.9947     | 7.9025     ms | 115.64  s
+11       | 0.0733     | 0.9970     | 0.0625     | 0.9947     | 7.9133     ms | 120.0   s
+12       | 0.0636     | 0.9966     | 0.0614     | 0.9965     | 7.9058     ms | 119.56  s
+13       | 0.0583     | 0.9966     | 0.0568     | 0.9947     | 7.9477     ms | 119.87  s
+14       | 0.0570     | 0.9966     | 0.0535     | 0.9965     | 7.8638     ms | 119.44  s
+15       | 0.0498     | 0.9974     | 0.0532     | 0.9947     | 7.9720     ms | 118.28  s
+
+[INFO] Early stopping triggered at epoch 15
+
+================================================================================
+
+
+
+
+[INFO] Finalizing Hybrid Model Evaluation with 4-Pass TTA...
+================================================================================
+[LATENCY] TSHE Single-pass: 7.9365 ms/image
+[LATENCY] TSHE 4-Pass TTA:   24.2175 ms/image
+
+[RESULT] Hybrid Model Test Accuracy: 99.3 %
+[INFO] Figure saved but inline display was unavailable: No module named 'IPython'
+[INFO] Figure saved but inline display was unavailable: No module named 'IPython'
+[INFO] Figure saved but inline display was unavailable: No module named 'IPython'
+[INFO] Figure saved but inline display was unavailable: No module named 'IPython'
+[INFO] Figure saved but inline display was unavailable: No module named 'IPython'
+[INFO] Figure saved but inline display was unavailable: No module named 'IPython'
+[INFO] Figure saved but inline display was unavailable: No module named 'IPython'
+[INFO] Figure saved but inline display was unavailable: No module named 'IPython'
+[INFO] Figure saved but inline display was unavailable: No module named 'IPython'
+
+[SUCCESS] ALL Hybrid Evaluation Artifacts & Plots Saved to: E:\Research Project\BDMediHerb\BDMediHerb_Reviewer_Revision\Hybrid_TripleStream
+
+(fusionvit) E:\Research Project\BDMediHerb\scripts>
+
+
+
+

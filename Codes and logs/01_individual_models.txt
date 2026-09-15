@@ -1,0 +1,281 @@
+PS E:\Research Project\BDMediHerb> cmd
+Microsoft Windows [Version 10.0.26100.9445]
+(c) Microsoft Corporation. All rights reserved.
+
+E:\Research Project\BDMediHerb>C:\Users\mdhab\anaconda3\Scripts\activate fusionvit
+
+(fusionvit) E:\Research Project\BDMediHerb>python "E:\Research Project\BDMediHerb\scripts\01_individual_models.py"
+[ENV] Local Windows PC detected
+
+================================================================================
+[INFO] Loading ORIGINAL BDMediHerb Dataset...
+================================================================================
+[INFO] Dataset signature: cdfa2400302c78beca84b844a5921bdfff976b5841d459f0a447625ccbe04db8
+[AUDIT] Unique exact image hashes: 3782/3800
+[INFO] Total images found: 3800
+[INFO] Number of classes: 19
+[INFO] Classes: ['Belleric Myrobalan', 'Black Cumin', 'Black Pepper', 'Cardamom', 'Chebulic Myrobalan', 'Cinnamon', 'Clove', 'Cumin Seeds', 'Fenugreek Seeds', 'Flax Seed', 'Garlic', 'Ginger', 'Gooseberry', 'Mace', 'Nutmeg', 'Psoralea Fruit', 'Sesame Seeds', 'Star Anise', 'Turmeric']
+[INFO] New shared split saved to: E:\Research Project\BDMediHerb\BDMediHerb_Reviewer_Revision\shared_stratified_split.json
+[INFO] Data Split Complete -> Train: 2660 | Val: 570 | Test: 570
+[INFO] IMPORTANT: Only original images are used. Training-time augmentation is generated dynamically and is NOT the 15,200 pre-augmented images from the public dataset.
+
+
+================================================================================
+[JOURNAL PIPELINE] PROCESSING: MobileNet_V3_Large | RESOLUTION: 224
+================================================================================
+
+Epoch    | Tr. Loss   | Tr. Acc    | Val Loss   | Val Acc    | Inference    | Time
+---------------------------------------------------------------------------------------------------------
+1        | 2.9266     | 0.0868     | 2.9124     | 0.2070     | 1.8917     ms | 42.57   s
+2        | 2.8859     | 0.2064     | 2.8542     | 0.4526     | 2.7151     ms | 52.82   s
+3        | 2.8380     | 0.3609     | 2.7868     | 0.6667     | 1.7587     ms | 45.71   s
+4        | 2.7718     | 0.5214     | 2.7031     | 0.7842     | 1.3318     ms | 42.44   s
+5        | 2.6862     | 0.6500     | 2.5911     | 0.8474     | 2.1704     ms | 43.29   s
+6        | 2.5723     | 0.7477     | 2.4571     | 0.8772     | 2.2312     ms | 41.55   s
+7        | 2.4334     | 0.8098     | 2.3014     | 0.8947     | 1.9138     ms | 41.67   s
+8        | 2.2891     | 0.8282     | 2.1244     | 0.9193     | 1.8310     ms | 41.84   s
+9        | 2.1059     | 0.8684     | 1.9511     | 0.9526     | 1.7828     ms | 41.32   s
+10       | 1.9649     | 0.9079     | 1.8160     | 0.9667     | 1.5985     ms | 41.43   s
+11       | 1.8528     | 0.9305     | 1.7246     | 0.9702     | 1.9766     ms | 41.81   s
+12       | 1.7857     | 0.9365     | 1.6623     | 0.9754     | 1.7385     ms | 42.56   s
+13       | 1.7064     | 0.9560     | 1.6175     | 0.9754     | 2.4996     ms | 42.73   s
+14       | 1.6851     | 0.9530     | 1.5895     | 0.9789     | 1.9217     ms | 43.17   s
+15       | 1.6582     | 0.9613     | 1.5702     | 0.9789     | 1.4279     ms | 41.9    s
+16       | 1.6318     | 0.9688     | 1.5594     | 0.9789     | 1.9887     ms | 42.81   s
+17       | 1.6120     | 0.9718     | 1.5525     | 0.9789     | 2.0970     ms | 43.04   s
+18       | 1.6196     | 0.9658     | 1.5494     | 0.9789     | 2.3392     ms | 41.74   s
+19       | 1.6072     | 0.9703     | 1.5455     | 0.9789     | 1.3711     ms | 43.14   s
+20       | 1.5983     | 0.9756     | 1.5434     | 0.9789     | 1.9974     ms | 41.56   s
+21       | 1.5969     | 0.9748     | 1.5416     | 0.9789     | 1.5709     ms | 41.5    s
+22       | 1.5952     | 0.9748     | 1.5390     | 0.9789     | 2.0479     ms | 41.61   s
+[INFO] Early stopping triggered at epoch 22
+[POST] Finalizing Artifacts for MobileNet_V3_Large...
+[INFO] Figure saved but inline display was unavailable: No module named 'IPython'
+[INFO] Figure saved but inline display was unavailable: No module named 'IPython'
+[INFO] Figure saved but inline display was unavailable: No module named 'IPython'
+[INFO] Figure saved but inline display was unavailable: No module named 'IPython'
+[INFO] Figure saved but inline display was unavailable: No module named 'IPython'
+✔ Pipeline finished for MobileNet_V3_Large. Data archived.
+
+
+
+================================================================================
+[JOURNAL PIPELINE] PROCESSING: EfficientNetV2_S | RESOLUTION: 224
+================================================================================
+
+Epoch    | Tr. Loss   | Tr. Acc    | Val Loss   | Val Acc    | Inference    | Time
+---------------------------------------------------------------------------------------------------------
+1        | 2.9169     | 0.0925     | 2.8314     | 0.2316     | 2.2701     ms | 48.53   s
+2        | 2.7747     | 0.2515     | 2.6637     | 0.5807     | 2.2199     ms | 48.83   s
+3        | 2.6077     | 0.4823     | 2.4598     | 0.7965     | 2.3589     ms | 50.45   s
+4        | 2.4114     | 0.6876     | 2.2274     | 0.8982     | 2.3088     ms | 49.97   s
+5        | 2.1976     | 0.8267     | 2.0082     | 0.9263     | 2.2945     ms | 50.59   s
+6        | 2.0105     | 0.8917     | 1.8360     | 0.9491     | 2.2843     ms | 50.88   s
+7        | 1.8876     | 0.9154     | 1.7237     | 0.9596     | 2.4180     ms | 49.45   s
+8        | 1.7737     | 0.9421     | 1.6412     | 0.9649     | 2.3309     ms | 45.79   s
+9        | 1.6988     | 0.9526     | 1.5970     | 0.9684     | 2.4830     ms | 45.52   s
+10       | 1.6561     | 0.9564     | 1.5596     | 0.9719     | 2.3108     ms | 45.01   s
+11       | 1.6278     | 0.9609     | 1.5389     | 0.9772     | 2.2657     ms | 45.21   s
+12       | 1.5935     | 0.9714     | 1.5312     | 0.9754     | 2.1906     ms | 44.72   s
+13       | 1.5786     | 0.9741     | 1.5205     | 0.9772     | 2.2583     ms | 45.41   s
+14       | 1.5619     | 0.9793     | 1.5138     | 0.9772     | 2.2626     ms | 45.29   s
+15       | 1.5664     | 0.9741     | 1.5080     | 0.9789     | 2.2145     ms | 45.75   s
+16       | 1.5642     | 0.9729     | 1.5053     | 0.9789     | 2.1819     ms | 46.3    s
+17       | 1.5560     | 0.9733     | 1.5008     | 0.9789     | 2.3221     ms | 45.57   s
+18       | 1.5524     | 0.9741     | 1.5009     | 0.9789     | 2.2325     ms | 45.34   s
+19       | 1.5450     | 0.9778     | 1.4986     | 0.9789     | 2.3831     ms | 44.32   s
+20       | 1.5348     | 0.9778     | 1.4946     | 0.9789     | 2.2998     ms | 45.8    s
+21       | 1.5305     | 0.9793     | 1.4946     | 0.9789     | 2.2037     ms | 45.54   s
+22       | 1.5393     | 0.9786     | 1.4939     | 0.9789     | 2.2633     ms | 45.86   s
+23       | 1.5415     | 0.9718     | 1.4924     | 0.9789     | 2.3052     ms | 45.59   s
+[INFO] Early stopping triggered at epoch 23
+[POST] Finalizing Artifacts for EfficientNetV2_S...
+[INFO] Figure saved but inline display was unavailable: No module named 'IPython'
+[INFO] Figure saved but inline display was unavailable: No module named 'IPython'
+[INFO] Figure saved but inline display was unavailable: No module named 'IPython'
+[INFO] Figure saved but inline display was unavailable: No module named 'IPython'
+[INFO] Figure saved but inline display was unavailable: No module named 'IPython'
+✔ Pipeline finished for EfficientNetV2_S. Data archived.
+
+
+
+================================================================================
+[JOURNAL PIPELINE] PROCESSING: ResNet50 | RESOLUTION: 224
+================================================================================
+
+Epoch    | Tr. Loss   | Tr. Acc    | Val Loss   | Val Acc    | Inference    | Time
+---------------------------------------------------------------------------------------------------------
+1        | 2.9010     | 0.1511     | 2.8348     | 0.3754     | 2.3021     ms | 43.48   s
+2        | 2.7605     | 0.5876     | 2.6598     | 0.7947     | 2.4726     ms | 42.86   s
+3        | 2.5362     | 0.8643     | 2.3887     | 0.9211     | 2.4244     ms | 43.46   s
+4        | 2.2582     | 0.9244     | 2.0935     | 0.9509     | 2.2012     ms | 42.64   s
+5        | 1.9965     | 0.9462     | 1.8266     | 0.9632     | 2.2146     ms | 42.83   s
+6        | 1.7732     | 0.9620     | 1.6694     | 0.9719     | 2.1999     ms | 43.45   s
+7        | 1.6513     | 0.9733     | 1.6288     | 0.9737     | 2.2286     ms | 43.3    s
+8        | 1.5912     | 0.9748     | 1.5620     | 0.9772     | 2.2064     ms | 43.49   s
+9        | 1.5462     | 0.9812     | 1.5419     | 0.9772     | 2.2115     ms | 43.63   s
+10       | 1.5401     | 0.9801     | 1.5273     | 0.9789     | 2.2580     ms | 43.67   s
+11       | 1.5339     | 0.9748     | 1.5241     | 0.9772     | 2.2839     ms | 43.25   s
+12       | 1.5192     | 0.9782     | 1.5201     | 0.9772     | 2.4139     ms | 43.21   s
+13       | 1.5162     | 0.9786     | 1.5110     | 0.9772     | 2.2636     ms | 43.17   s
+14       | 1.5118     | 0.9771     | 1.5166     | 0.9789     | 2.2113     ms | 43.34   s
+15       | 1.5163     | 0.9774     | 1.5061     | 0.9772     | 2.2679     ms | 42.03   s
+16       | 1.5061     | 0.9793     | 1.5033     | 0.9772     | 2.1709     ms | 42.35   s
+17       | 1.5073     | 0.9789     | 1.5041     | 0.9789     | 2.4931     ms | 42.81   s
+18       | 1.5031     | 0.9793     | 1.5026     | 0.9789     | 2.1989     ms | 42.94   s
+[INFO] Early stopping triggered at epoch 18
+[POST] Finalizing Artifacts for ResNet50...
+[INFO] Figure saved but inline display was unavailable: No module named 'IPython'
+[INFO] Figure saved but inline display was unavailable: No module named 'IPython'
+[INFO] Figure saved but inline display was unavailable: No module named 'IPython'
+[INFO] Figure saved but inline display was unavailable: No module named 'IPython'
+[INFO] Figure saved but inline display was unavailable: No module named 'IPython'
+✔ Pipeline finished for ResNet50. Data archived.
+
+
+
+================================================================================
+[JOURNAL PIPELINE] PROCESSING: DenseNet121 | RESOLUTION: 224
+================================================================================
+
+Epoch    | Tr. Loss   | Tr. Acc    | Val Loss   | Val Acc    | Inference    | Time
+---------------------------------------------------------------------------------------------------------
+1        | 2.9754     | 0.0759     | 2.8447     | 0.1035     | 2.2528     ms | 43.21   s
+2        | 2.6790     | 0.2207     | 2.6074     | 0.3368     | 2.2537     ms | 43.23   s
+3        | 2.4463     | 0.5165     | 2.3830     | 0.6509     | 2.4119     ms | 43.24   s
+4        | 2.2350     | 0.7805     | 2.1924     | 0.8386     | 2.4619     ms | 44.36   s
+5        | 2.0793     | 0.8823     | 2.0432     | 0.9298     | 2.1597     ms | 43.64   s
+6        | 1.9458     | 0.9417     | 1.9029     | 0.9579     | 2.3469     ms | 44.07   s
+7        | 1.8474     | 0.9665     | 1.8290     | 0.9667     | 2.2085     ms | 43.27   s
+8        | 1.7728     | 0.9695     | 1.7428     | 0.9737     | 2.4171     ms | 43.28   s
+9        | 1.7121     | 0.9778     | 1.6887     | 0.9772     | 2.4566     ms | 43.73   s
+10       | 1.6706     | 0.9733     | 1.6395     | 0.9772     | 2.4147     ms | 43.6    s
+11       | 1.6462     | 0.9748     | 1.6090     | 0.9772     | 2.6025     ms | 43.82   s
+12       | 1.6150     | 0.9774     | 1.5800     | 0.9789     | 2.6599     ms | 43.63   s
+13       | 1.6045     | 0.9744     | 1.5750     | 0.9789     | 2.2909     ms | 44.02   s
+14       | 1.5810     | 0.9782     | 1.5594     | 0.9789     | 2.3067     ms | 43.38   s
+15       | 1.5753     | 0.9748     | 1.5477     | 0.9772     | 2.4210     ms | 44.17   s
+16       | 1.5586     | 0.9827     | 1.5423     | 0.9789     | 2.2678     ms | 42.78   s
+17       | 1.5517     | 0.9812     | 1.5433     | 0.9789     | 2.2556     ms | 42.55   s
+18       | 1.5580     | 0.9778     | 1.5455     | 0.9789     | 2.4304     ms | 43.02   s
+19       | 1.5511     | 0.9801     | 1.5373     | 0.9789     | 2.2336     ms | 43.65   s
+20       | 1.5501     | 0.9786     | 1.5379     | 0.9789     | 2.2809     ms | 43.42   s
+[INFO] Early stopping triggered at epoch 20
+[POST] Finalizing Artifacts for DenseNet121...
+[INFO] Figure saved but inline display was unavailable: No module named 'IPython'
+[INFO] Figure saved but inline display was unavailable: No module named 'IPython'
+[INFO] Figure saved but inline display was unavailable: No module named 'IPython'
+[INFO] Figure saved but inline display was unavailable: No module named 'IPython'
+[INFO] Figure saved but inline display was unavailable: No module named 'IPython'
+✔ Pipeline finished for DenseNet121. Data archived.
+
+
+
+================================================================================
+[JOURNAL PIPELINE] PROCESSING: ViT_B16 | RESOLUTION: 224
+================================================================================
+
+Epoch    | Tr. Loss   | Tr. Acc    | Val Loss   | Val Acc    | Inference    | Time
+---------------------------------------------------------------------------------------------------------
+1        | 2.6429     | 0.4361     | 2.3174     | 0.7842     | 5.5689     ms | 66.32   s
+2        | 1.9876     | 0.9098     | 1.7728     | 0.9702     | 5.5887     ms | 66.19   s
+3        | 1.6362     | 0.9729     | 1.5939     | 0.9789     | 5.5878     ms | 65.88   s
+4        | 1.5380     | 0.9835     | 1.5545     | 0.9789     | 5.6186     ms | 66.0    s
+5        | 1.5249     | 0.9789     | 1.5369     | 0.9789     | 5.6165     ms | 66.06   s
+6        | 1.5021     | 0.9831     | 1.5253     | 0.9789     | 5.6130     ms | 66.73   s
+7        | 1.4947     | 0.9831     | 1.5190     | 0.9789     | 5.6230     ms | 66.5    s
+8        | 1.4921     | 0.9816     | 1.5178     | 0.9789     | 5.6201     ms | 65.46   s
+9        | 1.4853     | 0.9846     | 1.5136     | 0.9789     | 5.6095     ms | 66.99   s
+10       | 1.4863     | 0.9831     | 1.5128     | 0.9789     | 5.6073     ms | 68.14   s
+11       | 1.4832     | 0.9850     | 1.5103     | 0.9789     | 5.6220     ms | 67.34   s
+[INFO] Early stopping triggered at epoch 11
+[POST] Finalizing Artifacts for ViT_B16...
+[INFO] Figure saved but inline display was unavailable: No module named 'IPython'
+[INFO] Figure saved but inline display was unavailable: No module named 'IPython'
+[INFO] Figure saved but inline display was unavailable: No module named 'IPython'
+[INFO] Figure saved but inline display was unavailable: No module named 'IPython'
+[INFO] Figure saved but inline display was unavailable: No module named 'IPython'
+✔ Pipeline finished for ViT_B16. Data archived.
+
+
+
+================================================================================
+[JOURNAL PIPELINE] PROCESSING: Inception_V3 | RESOLUTION: 299
+================================================================================
+
+Epoch    | Tr. Loss   | Tr. Acc    | Val Loss   | Val Acc    | Inference    | Time
+---------------------------------------------------------------------------------------------------------
+1        | 2.8882     | 0.1286     | 2.7824     | 0.4140     | 2.3905     ms | 48.46   s
+2        | 2.6719     | 0.4391     | 2.6244     | 0.7684     | 2.6297     ms | 49.27   s
+3        | 2.4747     | 0.7038     | 2.4578     | 0.9158     | 2.5575     ms | 48.23   s
+4        | 2.3087     | 0.8256     | 2.3343     | 0.9368     | 2.5172     ms | 48.84   s
+5        | 2.1360     | 0.8981     | 2.2162     | 0.9386     | 2.4224     ms | 48.47   s
+6        | 2.0096     | 0.9120     | 2.1085     | 0.9667     | 2.4150     ms | 49.09   s
+7        | 1.8896     | 0.9278     | 1.9780     | 0.9667     | 2.5029     ms | 48.53   s
+8        | 1.8172     | 0.9436     | 1.8941     | 0.9649     | 2.6038     ms | 49.04   s
+9        | 1.7536     | 0.9609     | 1.8713     | 0.9684     | 2.5107     ms | 49.4    s
+10       | 1.7064     | 0.9571     | 1.8012     | 0.9737     | 2.6107     ms | 50.26   s
+11       | 1.6700     | 0.9635     | 1.7711     | 0.9667     | 2.4876     ms | 49.04   s
+12       | 1.6434     | 0.9643     | 1.7209     | 0.9754     | 2.6067     ms | 48.76   s
+13       | 1.6276     | 0.9643     | 1.6828     | 0.9772     | 2.5464     ms | 49.25   s
+14       | 1.6160     | 0.9665     | 1.6575     | 0.9754     | 2.3904     ms | 50.5    s
+15       | 1.6100     | 0.9699     | 1.6656     | 0.9737     | 2.4511     ms | 54.97   s
+16       | 1.5972     | 0.9684     | 1.6263     | 0.9772     | 2.4286     ms | 54.07   s
+17       | 1.5703     | 0.9771     | 1.6452     | 0.9719     | 2.6329     ms | 54.49   s
+18       | 1.5782     | 0.9695     | 1.6210     | 0.9772     | 2.4862     ms | 53.17   s
+19       | 1.5796     | 0.9729     | 1.6490     | 0.9789     | 2.6603     ms | 48.39   s
+20       | 1.5653     | 0.9786     | 1.6417     | 0.9754     | 2.6227     ms | 48.04   s
+21       | 1.5802     | 0.9677     | 1.5936     | 0.9754     | 2.5585     ms | 48.6    s
+22       | 1.5743     | 0.9729     | 1.6085     | 0.9754     | 2.6291     ms | 48.74   s
+23       | 1.5651     | 0.9718     | 1.6126     | 0.9772     | 2.5233     ms | 49.01   s
+24       | 1.5787     | 0.9647     | 1.5797     | 0.9772     | 2.5669     ms | 49.18   s
+25       | 1.5632     | 0.9782     | 1.5957     | 0.9772     | 2.6089     ms | 48.4    s
+26       | 1.5620     | 0.9744     | 1.5770     | 0.9754     | 2.6683     ms | 49.17   s
+27       | 1.5698     | 0.9707     | 1.6451     | 0.9772     | 2.3952     ms | 48.45   s
+[INFO] Early stopping triggered at epoch 27
+[POST] Finalizing Artifacts for Inception_V3...
+[INFO] Figure saved but inline display was unavailable: No module named 'IPython'
+[INFO] Figure saved but inline display was unavailable: No module named 'IPython'
+[INFO] Figure saved but inline display was unavailable: No module named 'IPython'
+[INFO] Figure saved but inline display was unavailable: No module named 'IPython'
+[INFO] Figure saved but inline display was unavailable: No module named 'IPython'
+✔ Pipeline finished for Inception_V3. Data archived.
+
+
+
+================================================================================
+[JOURNAL PIPELINE] PROCESSING: ConvNeXt_Tiny | RESOLUTION: 224
+================================================================================
+
+Epoch    | Tr. Loss   | Tr. Acc    | Val Loss   | Val Acc    | Inference    | Time
+---------------------------------------------------------------------------------------------------------
+1        | 2.8839     | 0.1195     | 2.7475     | 0.2807     | 6.0007     ms | 48.88   s
+2        | 2.6323     | 0.4120     | 2.4705     | 0.6667     | 2.3970     ms | 44.53   s
+3        | 2.3763     | 0.7395     | 2.1954     | 0.8982     | 2.4416     ms | 44.68   s
+4        | 2.1228     | 0.8932     | 1.9516     | 0.9649     | 2.3626     ms | 45.16   s
+5        | 1.9388     | 0.9271     | 1.7794     | 0.9649     | 2.4505     ms | 45.81   s
+6        | 1.7837     | 0.9605     | 1.6685     | 0.9772     | 2.5518     ms | 45.37   s
+7        | 1.6997     | 0.9643     | 1.6028     | 0.9789     | 2.6151     ms | 44.88   s
+8        | 1.6602     | 0.9635     | 1.5689     | 0.9789     | 2.3830     ms | 44.64   s
+9        | 1.6276     | 0.9711     | 1.5479     | 0.9789     | 2.4960     ms | 44.3    s
+10       | 1.5903     | 0.9812     | 1.5350     | 0.9789     | 2.4390     ms | 47.64   s
+11       | 1.5933     | 0.9711     | 1.5278     | 0.9789     | 2.4407     ms | 45.67   s
+12       | 1.5858     | 0.9711     | 1.5245     | 0.9789     | 2.4167     ms | 44.84   s
+13       | 1.5653     | 0.9786     | 1.5220     | 0.9789     | 2.6889     ms | 45.09   s
+14       | 1.5685     | 0.9756     | 1.5198     | 0.9789     | 2.4699     ms | 45.55   s
+15       | 1.5605     | 0.9741     | 1.5167     | 0.9789     | 2.4363     ms | 45.17   s
+[INFO] Early stopping triggered at epoch 15
+[POST] Finalizing Artifacts for ConvNeXt_Tiny...
+[INFO] Figure saved but inline display was unavailable: No module named 'IPython'
+[INFO] Figure saved but inline display was unavailable: No module named 'IPython'
+[INFO] Figure saved but inline display was unavailable: No module named 'IPython'
+[INFO] Figure saved but inline display was unavailable: No module named 'IPython'
+[INFO] Figure saved but inline display was unavailable: No module named 'IPython'
+✔ Pipeline finished for ConvNeXt_Tiny. Data archived.
+
+
+================================================================================
+[FINAL] COMPREHENSIVE INDIVIDUAL-MODEL PIPELINE COMPLETED SUCCESSFULLY
+================================================================================
+
+(fusionvit) E:\Research Project\BDMediHerb>

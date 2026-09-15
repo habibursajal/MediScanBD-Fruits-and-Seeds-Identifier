@@ -1,0 +1,29 @@
+(fusionvit) E:\Research Project\BDMediHerb\scripts>python xai_hybrid.py
+
+================================================================================
+[SYSTEM] INITIALIZING UNIFIED TRIPLE-STREAM XAI PIPELINE...
+================================================================================
+[ENV] Local Windows PC detected
+[LOAD] Loading best hybrid model weights from: best_hybrid_model.pth
+[INFO] Computing Unified Ensemble Faithfulness across 100 test samples...
+  [PROGRESS] Processed 20/100 samples...
+  [PROGRESS] Processed 40/100 samples...
+  [PROGRESS] Processed 60/100 samples...
+  [PROGRESS] Processed 80/100 samples...
+  [PROGRESS] Processed 100/100 samples...
+
+================================================================================
+[SUCCESS] Pipeline Completed!
+[RESULTS] Detailed Metrics CSV: E:\Research Project\BDMediHerb\BDMediHerb_Reviewer_Revision\Reviewer_XAI_External_Validation\xai_perturbation_faithfulness.csv
+[RESULTS] Summary JSON: E:\Research Project\BDMediHerb\BDMediHerb_Reviewer_Revision\Reviewer_XAI_External_Validation\xai_faithfulness_summary.json
+
+{
+  "n_samples": 100,
+  "evaluation_split": "shared test set only",
+  "mask_fraction": 0.15,
+  "mean_top_region_confidence_drop": 0.22882628858089446,
+  "mean_random_region_confidence_drop": 0.054197134524583815,
+  "mean_faithfulness_gain": 0.17462915405631066,
+  "interpretation": "Positive faithfulness gain confirms that masking Unified Grad-CAM salient pixels reduces confidence significantly more than masking random regions."
+}
+================================================================================
