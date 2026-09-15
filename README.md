@@ -234,5 +234,6 @@ Results are obtained on a curated, expert-verified benchmark under a fixed acqui
 
 ## 🔗 External Links
 * **Live Web Prototype:** [MediScanBD Live App](https://mediscanbd-fruits-and-seeds-identifier-rw9kldoexfipby4x2hg3h4.streamlit.app/)
+* **All Model Weights:** [https://drive.google.com/drive/folders/1svy-N-pixqPkzMI7y-U8Aq7bropma0U7?usp=sharing]
 * **Expert-Curated Dataset:** [BDMediHerb Dataset](https://doi.org/10.17632/4jh27vjxjm.2)
 * **Repository:** [github.com/habibursajal/MediScanBD-Fruits-and-Seeds-Identifier](https://github.com/habibursajal/MediScanBD-Fruits-and-Seeds-Identifier)
